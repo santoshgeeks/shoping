@@ -1,0 +1,168 @@
+<mat-toolbar>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img class="logo" src="../../assets/t-shirts/logo.png" alt="">
+            </div>
+            <div class="col">
+                <div class="iconCart">
+                  <a (click)="focusFunction()">
+                    <i  class="material-icons cart">shopping_cart</i>
+                    <div *ngIf="Addedlength>0" class="noOfitem"> <p class="addedInCart">{{Addedlength}}</p>
+                    </div>
+                  </a>
+                   </div>
+                <div class="form-popup" id="myForm" *ngIf="Addedlength>0">
+                    <div class="container">
+                        <div class="row" style="margin-left: -60px;background-color: #363738;margin-right: -5px;" >
+                         
+                            <button  class="closeCart" (click)="focusOutFunction()">X</button>
+                         
+                        </div>
+                        <div class="row">
+                          <div class="col-sm" style="background-color: #363738;text-align: center;margin-right: 10px;">
+                            <a (click)="focusFunction()"><i  class="material-icons cart">shopping_cart</i>
+                              <a *ngIf="Addedlength>0" class="noOfitemList">
+                                <p class="addedInCart">{{Addedlength}}</p>
+                              </a>
+                            </a>
+                          </div>
+                        </div>
+                               <div class="row" *ngFor="let item of addedItem; let i=index">
+                                
+                                 <div class="col-lg" style="background-color: #363738;margin-top: 2px;margin-right: 10px;padding: 0px;">
+                                  <mat-card style="width: 100%;">
+                                    <div class="row">
+                                      <div class="col-lg-3"> <img class="images" [src]="item.url" alt=""></div>
+                                      <div class="col-lg-9" style="padding: 0px;">
+                                        <div class="row"style="width: 100%;margin-top: -18px;">
+                                          <div class="col-lg" style="width: 100%;margin-top: 8px;">   <p (click)="removeItem(i)" style="float: right;cursor: pointer;">X</p></div>
+                                       
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-lg">
+                                            <p style="color: white;margin-bottom: 0px;">{{item.type}}</p>
+                                            <p style="color: #8e9294;;font-size: 14px; margin-top:-10px;">{{item.size}}
+                                               <span style="float: right;color:#ffc020;margin-right: 25px;">
+                                                <i style="font-size: 12px;" class="material-icons icons"> attach_money</i>
+                                                {{item.price}}.{{item.Fractionprice}} </span></p>
+                                          
+                                          </div>
+                                        </div>
+                                       
+                                      </div>
+                                    </div>
+                                   
+                                  </mat-card>
+                                  
+                                 </div>
+                        </div>
+                        <div class="row" style="background-color: #212529;">
+                          <mat-card style="width: 100%;">
+                            <div class="row">
+                              <div class="col-lg"><h4 style="color: #8e9294;">SUBTOTAL</h4></div>
+                              <div class="col-lg" > <p style="float: right;color: #ffc020;"><i class="material-icons icons"> attach_money</i>{{amount}}</p></div>
+                            </div>
+                            <div class="row" style="margin:10px">
+                              <button mat-raised-button color="primary">CHECKOUT</button>
+                            </div>
+                            
+                          </mat-card>
+                          
+                          
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  </mat-toolbar>
+  <div class="listItem">
+      <div class="row">
+          <div class="col-lg-2 col-md-2"><span class="sizeFont">Sizes:</span></div>
+          <div class="col-lg-3 col-md-3">{{length}} Product(s) found</div>
+          <div class="col-lg-3 col-md-3" ></div>
+          <div class="col-lg-3 col-md-3" style="text-align: right;">
+            <span style="margin-right: 10px;"> Order by</span>
+              <mat-form-field appearance=outline>
+                <mat-label>Select</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let size of size" [value]="size.value">
+                    {{size.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+          <div class="col-lg-1"></div>
+      </div>
+    <div class="row" >
+        <div class="col-lg-2">
+          <div class="row">
+            <div class="col-sm size"></div>
+            <div class="col-sm size">
+              <button  class="button button1"  [ngClass]="['XS'==isselected? 'btnChange' : 'change']" (click)="filterSize('XS')"><p class="pSize">XS</p></button>
+            </div>
+            <div class="col-sm size">
+              <button  class="button button1"  [ngClass]="['S'==isselected? 'btnChange' : 'change']" (click)="filterSize('S')"><p class="pSize">S</p></button>
+            </div>
+            <div class="col-sm size">
+              <button  class="button button1"  [ngClass]="['M'==isselected? 'btnChange' : 'change']" (click)="filterSize('M')"><p class="pSize">M</p></button>
+            </div>
+            <div class="col-sm size">
+              <button  class="button button1"  [ngClass]="['ML'==isselected? 'btnChange' : 'change']" (click)="filterSize('ML')"><p class="pSize">ML</p></button>
+            </div>
+            <div class="col-sm size"></div>
+            
+          </div>
+            <div class="row">
+              <div class="col-sm size"></div>
+              <div class="col-sm size">
+            
+              <button  class="button button1" [ngClass]="['L'==isselected? 'btnChange' : 'change']"(click)="filterSize('L')"><span class="pSize">L</span></button>
+            </div>
+            
+            <div class="col-sm size">
+              <button  class="button button1"   [ngClass]="['XL'==isselected? 'btnChange' : 'change']" (click)="filterSize('XL')"><span class="pSize">XL</span></button>
+            </div>
+            <div class="col-sm size" style="text-align: center;">
+              <button  class="button button1"  [ngClass]="['XXL'==isselected? 'btnChange' : 'change']" (click)="filterSize('XXL')"><span class="pSize">XXL</span></button>
+            </div>
+            <div class="col-sm size"></div>
+            <div class="col-sm size"></div>
+            <div class="col-sm size"></div>
+            <div class="col-sm size"></div>
+            
+          </div>
+        
+
+        </div>
+        <div class="col-lg-9" style="padding: 10px;">
+            <div class="row">
+        <div style="margin-bottom: 20px;" class="col-lg-3" *ngFor="let item of items | filter:sizeFilter :true; let i=index">
+            <div *ngIf="item.deliveryFree" class="freeDelivery">Free Delivery</div>
+          <div class="itemDetails">
+            <img class="itemsImage" [src]="item.url" alt="">
+            <div class="row">
+            <div class="col-sm"style="text-align: center;">
+           <p>{{item.type}}</p></div></div>
+           <div class="border"></div> 
+           <div class="row">
+            <div class="col-sm"style="text-align: center;">
+           <i class="material-icons icons"> attach_money</i><Span style="font-size: 30px;">{{item.price}}.<span style="font-size: 15px;">{{item.Fractionprice}}</span></Span>
+          </div>
+        </div>
+           <div class="row" >
+               <div class="col-sm"style="text-align: center;">
+                <button (click)="addToCart(i,item)" mat-raised-button color="primary" [ngClass]="[i == isselected && Addedlength>0 ? 'button-active' : 'mat-raised-button']" >Add To Cart</button>
+               </div>
+             </div>
+          </div>
+        </div>
+    </div>
+    </div>
+    <div class="col-lg-1"></div>
+    </div>
+  </div>
+ 
